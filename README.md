@@ -29,28 +29,6 @@ SalaryCalc 代表工资计算系统
 那怎么读取jar呢，肯定不能直接引入module了，不然还是能看到源代码，要单独引入jar，并读取jar内容
 那就要采用类加载器加载jar包了
 
-package com.study;
-
-import java.net.URL;
-import java.net.URLClassLoader;
-
-public class OaSystem {
-
-
-    private static Double calcSalary(Double salary) {
-//        return new SalaryCalc().calc(salary);
-URL[] urls = new URL[]{};
-URLClassLoader classLoader = new URLClassLoader(urls);
-}
-}
-
-
-package com.study.salary;
-
-public class SalaryCalc {
-
-}
-
 
 
 
