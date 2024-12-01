@@ -24,5 +24,11 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-crypto</artifactId>
+            <version>5.8.29</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

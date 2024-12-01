@@ -35,7 +35,7 @@ public class ClassEncry {
                 if (jarEntry.getName().endsWith(".class")) {
                     // 需要在这里加密
                     // 第一步修改class文件后缀
-                    String jarEntryName = jarEntry.getName().replace(".class", ".class");
+                    String jarEntryName = jarEntry.getName().replace(".class", ".security");
                     JarEntry newEntry = new JarEntry(jarEntryName);
                     jos.putNextEntry(newEntry);
                     // 第二步加密字节数组
