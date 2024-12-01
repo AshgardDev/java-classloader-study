@@ -24,7 +24,7 @@ public class OaSystem {
     }
 
     private static Double calcSalary(Double salary) throws Exception {
-        File file = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-1.0-SNAPSHOT.jar");
+        File file = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-encry-1.0-SNAPSHOT.jar");
         URL salaryJarUrl = file.toURI().toURL();
         URL[] urls = new URL[]{salaryJarUrl};
         URLClassLoader classLoader = new URLClassLoader(urls);

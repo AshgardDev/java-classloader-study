@@ -7,10 +7,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>oa-system</artifactId>
+    <artifactId>class-encry</artifactId>
     <packaging>jar</packaging>
 
-    <name>oa-system</name>
+    <name>class-encry</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -18,11 +18,16 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>
-            <groupId>org.example</groupId>
-            <artifactId>salary-system</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>5.8.29</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-crypto</artifactId>
+            <version>5.8.29</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

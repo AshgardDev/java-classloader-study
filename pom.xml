@@ -9,5 +9,6 @@
     <modules>
         <module>oa-system</module>
         <module>salary-system</module>
+        <module>class-encry</module>
     </modules>
 </project>
