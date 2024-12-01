@@ -51,6 +51,7 @@ public class OaSystem {
         File file = FileWatcher.getSalaryVersion();
         // 通过自定义的加密的类加载器加载,且每次都生成新的，这样就能每次都生成新的类加载器，每次都会加载一遍
         SecurityClassLoader securityClassLoader = new SecurityClassLoader(file);
+        // System.out.println("securityClassLoader.getParent() = " + securityClassLoader.getParent());
         Class<?> clazz = securityClassLoader.loadClass("org.example.SalaryCalc");
         Object obj = clazz.newInstance();
         return (Double) clazz.getMethod("calc", Double.class).invoke(obj, salary);

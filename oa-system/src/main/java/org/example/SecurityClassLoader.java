@@ -27,6 +27,7 @@ public class SecurityClassLoader extends SecureClassLoader {
     // 重载该方法，实现解密逻辑
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
+        /*
         try {
             return super.loadClass(name);
         } catch (ClassNotFoundException exception) {
@@ -38,6 +39,22 @@ public class SecurityClassLoader extends SecureClassLoader {
                 return this.defineClass(name, bytes, 0, bytes.length);
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+        }
+        */
+        synchronized (getClassLoadingLock(name)) {
+            if (name.startsWith("org.example.SalaryCalc")) {
+                String jarEntryName = name.replace('.', '/') + ".security";
+                JarEntry jarEntry = jar.getJarEntry(jarEntryName);
+                try (InputStream is = jar.getInputStream(jarEntry)) {
+                    RSA rsa = new RSA(privateKey, publicKey);
+                    byte[] bytes = rsa.decrypt(is, KeyType.PrivateKey);
+                    return this.defineClass(name, bytes, 0, bytes.length);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                return super.loadClass(name);
             }
         }
     }
