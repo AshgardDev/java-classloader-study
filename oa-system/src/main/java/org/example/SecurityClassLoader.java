@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.SecureClassLoader;
+import java.util.ServiceLoader;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -41,8 +42,10 @@ public class SecurityClassLoader extends SecureClassLoader {
             }
         }
         */
+
+        /*
         synchronized (getClassLoadingLock(name)) {
-            if (name.startsWith("org.example.SalaryCalc")) {
+            if (name.equals("org.example.SalaryCalc")) {
                 String jarEntryName = name.replace('.', '/') + ".security";
                 JarEntry jarEntry = jar.getJarEntry(jarEntryName);
                 try (InputStream is = jar.getInputStream(jarEntry)) {
@@ -53,6 +56,22 @@ public class SecurityClassLoader extends SecureClassLoader {
                     throw new RuntimeException(e);
                 }
             } else {
+                return super.loadClass(name);
+            }
+        }
+        */
+        synchronized (getClassLoadingLock(name)) {
+            String jarEntryName = name.replace('.', '/') + ".security";
+            JarEntry jarEntry = jar.getJarEntry(jarEntryName);
+            try {
+                try (InputStream is = jar.getInputStream(jarEntry)) {
+                    RSA rsa = new RSA(privateKey, publicKey);
+                    byte[] bytes = rsa.decrypt(is, KeyType.PrivateKey);
+                    return this.defineClass(name, bytes, 0, bytes.length);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } catch (Exception e) {
                 return super.loadClass(name);
             }
         }

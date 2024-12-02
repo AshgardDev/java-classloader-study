@@ -24,7 +24,7 @@ public class ClassEncry {
     private static String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAEIPUDkKaaIC+HHLXXjvlxEP0dfCMtBQ19p0S1cGJRFHJPdK3pC18jCkr3bKzCEhcZiD+L7gO8hNU8vX2xIprSNCxeucD6g45C8J7Uj7v7lafZw5SrYo6NKFdLwjPeLHDY8CNmL7fEwmBNCHdoEPhfpG3O1/wY9ZSuA8i77gn7QIDAQAB";
 
     public static void main(String[] args) throws Exception {
-        File jarOutput = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-encry-2.0-SNAPSHOT.jar");
+        File jarOutput = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-encry-1.0-SNAPSHOT.jar");
         try (
                 JarFile jarFile = new JarFile(new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-1.0-SNAPSHOT.jar"));
                 JarOutputStream jos = new JarOutputStream(Files.newOutputStream(jarOutput.toPath()))

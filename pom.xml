@@ -10,5 +10,6 @@
         <module>oa-system</module>
         <module>salary-system</module>
         <module>class-encry</module>
+        <module>salary-calc-intf</module>
     </modules>
 </project>

@@ -150,3 +150,6 @@ public interface SalaryCalcInterface {
 第二步：让每个jar实现该接口
 jar包里没有接口的话，只要复制一份相同的接口就行，具体就看代码
 
+# 3.8 将接口抽到一个公用服务里，让实现交给具体的实现方--这就是java的SPI机制
+
+
