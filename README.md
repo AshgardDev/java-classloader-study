@@ -117,8 +117,8 @@ Configuration reloaded:
     </dependencies>
 </project>
 ```
-结果，你会发现，无论你怎么修改参数，都不会在使用你写的jar包逻辑了
-这是因为类加载的双亲委派机制导致的
+结果，你会发现，无论你怎么修改参数，都不会再使用你写的jar包逻辑了
+这是因为类加载的双亲委派机制导致的，打印一下SecurityClassLoader父类加载器
 SecurityClassLoader的parent: securityClassLoader.getParent() = sun.misc.Launcher$AppClassLoader@18b4aac2
 发现是AppClassLoader，
 如果你引入了salary-system或者本地有个SalaryCalc类，根据双亲委派机制，
@@ -129,5 +129,16 @@ bootstrapClassLoader(not found) -> extClassLoader(not found) -> appClassLoader(f
 怎么办？
 打破双亲委派机制，让securityClassLoader优先加载，当然了，这里要指定是哪些类优先本地加载，不然如果都从securityClassLoader优先加载，比如
 Object类，那会出问题的！
+
+# 3.6 能不能不要每次都新建一个类加载器，避免造成大量垃圾呢，即多版本共存
+我们创建2个类加载器，分别将各自的类加载进来，并缓存起来存到Map里，具体逻辑看VersionSalaryCalc代码
+这里要注意，不同类加载器加载进来的类，虽然包名、类名一样，但实际上是完全不同的两个类，
+两个类比较：
+[类加载器]org.example.SalaryCalc  前面的类加载器好像是一个隐藏的命名空间一样，类相等的前提，一定是同一个类加载器
+所以，他们之间也是不能互相转换的，会出现以下把报错：
+org.example.SalaryCalc cannot be cast to org.example.SalaryCalc
+
+# 3.7 这里在代码里写死了需要加载的包名，硬编码，这对系统扩展不友好
+
 
 

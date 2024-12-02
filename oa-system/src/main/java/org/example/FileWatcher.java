@@ -12,9 +12,9 @@ import java.util.Properties;
 
 public class FileWatcher {
 
-    private static File addSalary = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-encry-1.0-SNAPSHOT.jar");
+    public static File addSalary = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-encry-1.0-SNAPSHOT.jar");
 
-    private static File normalSalary = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-encry-2.0-SNAPSHOT.jar");
+    public static File normalSalary = new File("/Users/hbj/Study/java-classloader-study/salary-system/target/salary-system-encry-2.0-SNAPSHOT.jar");
 
     private static Properties properties = new Properties();
 
@@ -22,13 +22,16 @@ public class FileWatcher {
 
     private static final String DIRECTORY_PATH = "/Users/hbj/Study/java-classloader-study/oa-system/src/main/resources/";             // 文件所在目录
 
+    public static String getSalaryVersionConfig() {
+        return properties.getProperty("salary.version");
+    }
 
     public static File getSalaryVersion() {
         return "add".equals(properties.getProperty("salary_version")) ? addSalary : normalSalary;
     }
 
     public static void start() {
-        new Thread(()->{
+        new Thread(() -> {
             try {
                 watchFile();
             } catch (IOException e) {

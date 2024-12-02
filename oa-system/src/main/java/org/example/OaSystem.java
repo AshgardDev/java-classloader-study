@@ -19,6 +19,9 @@ public class OaSystem {
         FileWatcher.reloadConfig();
         FileWatcher.start();
 
+        VersionSalaryCalc versionSalaryCalc = new VersionSalaryCalc();
+        versionSalaryCalc.init();
+
         // 每隔一段时间计算一次薪水
         while (true) {
             // money = calcSalary(salary, securityClassLoader);
@@ -57,4 +60,9 @@ public class OaSystem {
         return (Double) clazz.getMethod("calc", Double.class).invoke(obj, salary);
     }
 
+    // 多版本共存
+    private static Double calcSalaryByVersion(Double salary) throws Exception {
+        Object obj = VersionSalaryCalc.getSalaryCalc();
+        return (Double) obj.getClass().getMethod("calc", Double.class).invoke(obj, salary);
+    }
 }
