@@ -138,7 +138,15 @@ Object类，那会出问题的！
 所以，他们之间也是不能互相转换的，会出现以下把报错：
 org.example.SalaryCalc cannot be cast to org.example.SalaryCalc
 
-# 3.7 这里在代码里写死了需要加载的包名，硬编码，这对系统扩展不友好
-
-
+# 3.7 类加载器代码里加载的包名硬编码，这对系统扩展不友好，且使用的时候每次都要用反射，非常不友好
+如果将jar看成不同的实现类，那我们只需要有一个通用的接口
+第一步：抽出通用接口对象
+```java
+// 抽出通用的薪资计算接口
+public interface SalaryCalcInterface {
+    Double calc(Double salary);
+}
+```
+第二步：让每个jar实现该接口
+jar包里没有接口的话，只要复制一份相同的接口就行，具体就看代码
 

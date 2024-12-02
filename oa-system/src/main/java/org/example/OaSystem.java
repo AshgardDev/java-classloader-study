@@ -65,4 +65,10 @@ public class OaSystem {
         Object obj = VersionSalaryCalc.getSalaryCalc();
         return (Double) obj.getClass().getMethod("calc", Double.class).invoke(obj, salary);
     }
+
+    // 多版本共存 相同接口
+    private static Double calcSalaryInterface(Double salary) throws Exception {
+        SalaryCalcInterface obj = VersionSalaryCalc.getSalaryCalcInterface();
+        return obj.calc(salary);
+    }
 }

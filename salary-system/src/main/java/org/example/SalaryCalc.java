@@ -3,10 +3,11 @@ package org.example;
 /**
  * Hello world!
  */
-public class SalaryCalc {
+public class SalaryCalc implements SalaryCalcInterface {
 
+    @Override
     public Double calc(Double salary) {
         // 明目张单加
-        return salary * 1.2;
+        return salary * 1.0;
     }
 }

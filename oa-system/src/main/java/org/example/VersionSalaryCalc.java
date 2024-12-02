@@ -32,4 +32,8 @@ public class VersionSalaryCalc {
         String version = FileWatcher.getSalaryVersionConfig();
         return VERSION.get(version) == null ? VERSION.get("default") : VERSION.get(version);
     }
+
+    public static SalaryCalcInterface getSalaryCalcInterface() {
+        return (SalaryCalcInterface)getSalaryCalc();
+    }
 }
