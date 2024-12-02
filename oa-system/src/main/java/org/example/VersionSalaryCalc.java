@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -9,15 +10,27 @@ public class VersionSalaryCalc {
     public static Map<String, Object> VERSION = new HashMap<>();
 
     public void init() throws Exception {
-        SecurityClassLoader addClsLoader = new SecurityClassLoader(FileWatcher.addSalary);
-        ServiceLoader<SalaryCalcInterface> loader = ServiceLoader.load(SalaryCalcInterface.class, addClsLoader);
-        SalaryCalcInterface addSalary = loader.iterator().next();
-        VERSION.put("add", addSalary);
+//        SecurityClassLoader addClsLoader = new SecurityClassLoader(FileWatcher.addSalary);
+//        ServiceLoader<SalaryCalcInterface> loader = ServiceLoader.load(SalaryCalcInterface.class, addClsLoader);
+//        SalaryCalcInterface addSalary = loader.iterator().next();
+//        VERSION.put("add", addSalary);
+//
+//        SecurityClassLoader normalClsLoader = new SecurityClassLoader(FileWatcher.normalSalary);
+//        ServiceLoader<SalaryCalcInterface> loader2 = ServiceLoader.load(SalaryCalcInterface.class, normalClsLoader);
+//        SalaryCalcInterface normalSalary = loader2.iterator().next();
+//        VERSION.put("normal", normalSalary);
+        VERSION.put("add", getSalaryService(new SecurityClassLoader(FileWatcher.addSalary)));
+        VERSION.put("normal", getSalaryService(new SecurityClassLoader(FileWatcher.normalSalary)));
 
-        SecurityClassLoader normalClsLoader = new SecurityClassLoader(FileWatcher.normalSalary);
-        ServiceLoader<SalaryCalcInterface> loader2 = ServiceLoader.load(SalaryCalcInterface.class, normalClsLoader);
-        SalaryCalcInterface normalSalary = loader2.iterator().next();
-        VERSION.put("normal", normalSalary);
+    }
+
+    private SalaryCalcInterface getSalaryService(ClassLoader classLoader) throws IOException {
+        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(classLoader);
+        ServiceLoader<SalaryCalcInterface> loader = ServiceLoader.load(SalaryCalcInterface.class);
+        SalaryCalcInterface salaryCalc = loader.iterator().next();
+        Thread.currentThread().setContextClassLoader(contextClassLoader);
+        return salaryCalc;
     }
 
     public void init0() throws Exception {
